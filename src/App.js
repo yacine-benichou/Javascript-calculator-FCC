@@ -2,48 +2,76 @@ import React from 'react'
 import './App.css';
 import Button from './Button';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       inputValue: "0",
-      outputValue: '',
       expression: "0"
     }
     this.handleClick = this.handleClick.bind(this);
     this.clearDisplay = this.clearDisplay.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
     this.handleEqual = this.handleEqual.bind(this);
+    this.handleDecimal = this.handleDecimal.bind(this);
   }
 
   handleClick(e) {
+    if (this.state.expression.endsWith("-")) {
       this.setState({
-        inputValue: this.state.inputValue === "0" ? e.target.value : this.state.inputValue + e.target.value 
-      })
+      inputValue: this.state.inputValue + e.target.value,
+      expression: this.state.expression + e.target.value
+     })
+    } else {
+      this.setState({
+      inputValue: this.state.inputValue === "0" ? e.target.value : this.state.inputValue.replace(/([-+*/])+/g, "$1") + e.target.value,
+      expression: this.state.expression === "0" ? e.target.value : this.state.expression.replace(/([-+*/])+/g, "$1") + e.target.value
+    })
+    }
+  
   }
 
   clearDisplay() {
     this.setState({
       inputValue: "0",
-      outputValue: '',
       expression: "0"
     })
   }
 
   handleOperators(event) {
-    this.setState({
-      inputValue: this.state.inputValue + event.target.value.replace("X", "*")
-    })
-    
+    let result = event.target.value;
+    if (/[+-/*]$/.test(this.state.expression) && result !== "-") {
+      this.setState({
+        inputValue: result,
+        expression: this.state.expression.replace(/[+-/*]$/, "") + result
+      })
+    } else {
+      this.setState({
+        inputValue: result,
+        expression: this.state.expression + result
+        })
+    }
   }
 
   handleEqual() {
-    let solution = Math.round(1000000 * eval(this.state.inputValue))/1000000;
+    let solution = Math.round(1000000 * eval(this.state.expression))/1000000;
     this.setState({
-      inputValue: String(solution)
+      inputValue: String(solution),
+      expression: String(solution)
     })
   }
-  
+
+handleDecimal(event) {
+  let result = event.target.value;
+  if (!this.state.inputValue.includes(".")) {
+    this.setState({
+      inputValue: this.state.inputValue + result,
+      expression: this.state.expression + result
+    })
+  }
+}
+
 
 
   render() {
@@ -52,7 +80,16 @@ class App extends React.Component {
         <div className = "display" id = "display">
           {this.state.inputValue}
         </div>
-        <Button inputValue = {this.state.inputValue} handleEqual = {this.handleEqual} handleClick = {this.handleClick} clearDisplay = {this.clearDisplay} handleOperators = {this.handleOperators}/>
+        <Button inputValue = {this.state.inputValue}
+                handleEqual = {this.handleEqual} 
+                handleClick = {this.handleClick} 
+                clearDisplay = {this.clearDisplay} 
+                handleOperators = {this.handleOperators} 
+                handleDecimal = {this.handleDecimal} />
+        
+        <div className = "expression-display">
+          {this.state.expression}
+        </div>
       </div>
     )
   }

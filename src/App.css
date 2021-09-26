@@ -1,0 +1,32 @@
+body {
+    background-color: #c2c2d6;
+}
+
+#display {
+    text-align: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.expression-display {
+    text-align: center;
+    background-color: black;
+    color: #ff5100;
+}
+
+#clear {
+    background-color: red;
+    color: white;
+}
+
+#multiply, #divide, #add, #subtract {
+    background-color: rgb(53, 54, 58);
+    color: white;
+}
+
+#equals {
+    background-color: rgb(18, 81, 199);
+}
+
+
