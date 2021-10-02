@@ -2,31 +2,110 @@ body {
     background-color: #c2c2d6;
 }
 
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.outer-container {
+    position: relative;
+    border: 2px solid #323238;
+    background-color: black;
+    padding: 5px;
+}
+
 #display {
-    text-align: center;
+    text-align: end;
     align-items: center;
     background-color: black;
     color: white;
+    height: 30px;
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+button {
+    position: relative;
+    height: 65px;
+    width: 85px;
+    color: white;
+    background-color: black;
+    outline: 1px solid rgb(168, 163, 163);
+}
+
+button:hover {
+    background-color: rgb(162, 167, 172);
+    color: black;
+    outline: 0.05em solid white;
 }
 
 .expression-display {
-    text-align: center;
+    text-align: end;
     background-color: black;
     color: #ff5100;
 }
 
 #clear {
-    background-color: red;
-    color: white;
+    background-color: #333;
+    grid-column: span 2;
+    width: 170px; /* 2 times the width of the other buttons */
 }
 
-#multiply, #divide, #add, #subtract {
-    background-color: rgb(53, 54, 58);
-    color: white;
+#clear:hover {
+    background-color: rgb(98, 98, 99);
+}
+
+#multiply {
+    background-color: #333;
+}
+
+#multiply:hover {
+    background-color: rgb(98, 98, 99);
+}
+
+#divide {
+    background-color: #333;
+}
+
+#divide:hover {
+    background-color: rgb(98, 98, 99);
+}
+
+#add {
+    background-color: #333;
+}
+
+#add:hover {
+    background-color: rgb(98, 98, 99);
+}
+
+#subtract {
+    background-color: #333;
+}
+
+#subtract:hover {
+    background-color: rgb(98, 98, 99);
 }
 
 #equals {
-    background-color: rgb(18, 81, 199);
+    background-color: rgb(238, 68, 68);
+    height: 200%;
+}
+
+#equals:hover {
+    background-color: rgb(192, 1, 1);
+    color: white;
+}
+
+#zero {
+    grid-column: span 2;
+    width: 170px; /* 2 times the width of the other buttons */
 }
 
 

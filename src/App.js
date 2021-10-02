@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       inputValue: "0",
-      expression: "0"
+      expression: ""
     }
     this.handleClick = this.handleClick.bind(this);
     this.clearDisplay = this.clearDisplay.bind(this);
@@ -16,6 +16,8 @@ class App extends React.Component {
     this.handleEqual = this.handleEqual.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
   }
+
+  // handle the click on all numbers
 
   handleClick(e) {
     if (this.state.expression.endsWith("-")) {
@@ -26,18 +28,22 @@ class App extends React.Component {
     } else {
       this.setState({
       inputValue: this.state.inputValue === "0" ? e.target.value : this.state.inputValue.replace(/([-+*/])+/g, "$1") + e.target.value,
-      expression: this.state.expression === "0" ? e.target.value : this.state.expression.replace(/([-+*/])+/g, "$1") + e.target.value
+      expression: this.state.expression === "" ? e.target.value : this.state.expression.replace(/([-+*/])+/g, "$1") + e.target.value
     })
     }
   
   }
 
+  // handle the clear button
+
   clearDisplay() {
     this.setState({
       inputValue: "0",
-      expression: "0"
+      expression: ""
     })
   }
+
+  // handle the operator buttons 
 
   handleOperators(event) {
     let result = event.target.value;
@@ -54,13 +60,25 @@ class App extends React.Component {
     }
   }
 
+  // handle the equal button 
+
   handleEqual() {
-    let solution = Math.round(1000000 * eval(this.state.expression))/1000000;
-    this.setState({
+    if (/[+-/*]$/.test(this.state.expression) || this.state.expression.endsWith("/0")) {
+      this.setState({
+        inputValue: "Error",
+        expression: ""
+      })
+    }
+    else {
+      let solution = Math.round(1000000 * eval(this.state.expression))/1000000;
+      this.setState({
       inputValue: String(solution),
       expression: String(solution)
     })
+    }
   }
+
+  // handle the decimal button
 
 handleDecimal(event) {
   let result = event.target.value;
@@ -76,7 +94,11 @@ handleDecimal(event) {
 
   render() {
     return(
-      <div className = "outer-container">
+      <div className="app-container">
+        <div className = "outer-container">
+        <div className = "expression-display">
+          {this.state.expression}
+        </div>
         <div className = "display" id = "display">
           {this.state.inputValue}
         </div>
@@ -86,9 +108,6 @@ handleDecimal(event) {
                 clearDisplay = {this.clearDisplay} 
                 handleOperators = {this.handleOperators} 
                 handleDecimal = {this.handleDecimal} />
-        
-        <div className = "expression-display">
-          {this.state.expression}
         </div>
       </div>
     )

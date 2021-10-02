@@ -1,9 +1,6 @@
 import React from "react"; 
 
 class Button extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return(
@@ -22,9 +19,9 @@ class Button extends React.Component {
                 <button onClick = {this.props.handleClick} id = "one" value = "1">1</button>
                 <button onClick = {this.props.handleClick} id = "two" value = "2">2</button>
                 <button onClick = {this.props.handleClick} id = "three" value = "3">3</button>
-                <button onClick = {this.props.handleDecimal} id = "decimal" value = ".">.</button>
-                <button onClick = {this.props.handleClick} id = "zero" value = "0">0</button>
                 <button onClick = {this.props.handleEqual} id = "equals">=</button>
+                <button onClick = {this.props.handleClick} id = "zero" value = "0">0</button>
+                <button onClick = {this.props.handleDecimal} id = "decimal" value = ".">.</button>
             </div>
         )
     }
