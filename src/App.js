@@ -52,6 +52,11 @@ class App extends React.Component {
         inputValue: result,
         expression: this.state.expression.replace(/[+-/*]$/, "") + result
       })
+    } else if (this.state.inputValue === "0") {
+      this.setState({
+        expression: this.state.inputValue + result,
+        inputValue: result
+      })
     } else {
       this.setState({
         inputValue: result,
@@ -63,19 +68,11 @@ class App extends React.Component {
   // handle the equal button 
 
   handleEqual() {
-    if (/[+-/*]$/.test(this.state.expression) || this.state.expression.endsWith("/0")) {
-      this.setState({
-        inputValue: "Error",
-        expression: ""
-      })
-    }
-    else {
-      let solution = Math.round(1000000 * eval(this.state.expression))/1000000;
-      this.setState({
+    let solution = Math.round(1000000 * eval(this.state.expression))/1000000;
+    this.setState({
       inputValue: String(solution),
       expression: String(solution)
     })
-    }
   }
 
   // handle the decimal button
